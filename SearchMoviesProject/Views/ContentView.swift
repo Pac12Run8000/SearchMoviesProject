@@ -2,30 +2,23 @@ import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject var networkService: NetworkService
-    @State private var searchText: String = ""
-    @State private var isLoading: Bool = false
+    @StateObject private var viewModel: ContentViewModel
+    
+    init() {
+        _viewModel = StateObject(wrappedValue: ContentViewModel(networkService: NetworkService(token: "token_4435356")))
+    }
     
     var body: some View {
         VStack {
             HStack {
-                TextField("Enter search criteria", text: $searchText)
+                TextField("Enter search criteria", text: $viewModel.searchText)
                     .padding()
                     .background(Color.white)
                     .cornerRadius(8)
                     .shadow(color: .gray, radius: 2, x: 0, y: 2)
                 
                 Button(action: {
-                    Task {
-                        isLoading = true
-                        defer { isLoading = false }
-                        if let url = URL(string:"https://api.themoviedb.org/3/search/movie?query=\(searchText)") {
-                            do {
-                                _ = try await networkService.fetchData(from: url)
-                            } catch {
-                                print("Failed to fetch data: \(error)")
-                            }
-                        }
-                    }
+                    viewModel.searchMovies()
                 }) {
                     Image(systemName: "magnifyingglass")
                         .foregroundColor(.white)
@@ -36,11 +29,11 @@ struct ContentView: View {
             }
             .padding()
             
-            if isLoading {
+            if viewModel.isLoading {
                 ProgressView()
                     .padding()
             } else {
-                List(networkService.movieSearch?.results ?? []) { result in
+                List(viewModel.movieSearch?.results ?? []) { result in
                     Text(result.title)
                 }
             }
@@ -48,8 +41,12 @@ struct ContentView: View {
             Spacer()
         }
         .background(Color.pink.edgesIgnoringSafeArea(.all))
+        .onAppear {
+            viewModel.networkService = networkService
+        }
     }
 }
+
 
 
 #Preview {

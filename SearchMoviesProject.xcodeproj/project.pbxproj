@@ -14,6 +14,7 @@
 		09F869672C176EEF00093070 /* MovieSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F869662C176EEF00093070 /* MovieSearch.swift */; };
 		09F8696A2C17C90100093070 /* NetworkingServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F869692C17C90100093070 /* NetworkingServiceProtocol.swift */; };
 		09F8696C2C17C95700093070 /* NetworkingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F8696B2C17C95700093070 /* NetworkingService.swift */; };
+		09F8696E2C18D4F800093070 /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F8696D2C18D4F800093070 /* ContentViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		09F869662C176EEF00093070 /* MovieSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieSearch.swift; sourceTree = "<group>"; };
 		09F869692C17C90100093070 /* NetworkingServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingServiceProtocol.swift; sourceTree = "<group>"; };
 		09F8696B2C17C95700093070 /* NetworkingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingService.swift; sourceTree = "<group>"; };
+		09F8696D2C18D4F800093070 /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +92,7 @@
 		09F869632C176DF200093070 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				09F8696D2C18D4F800093070 /* ContentViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -190,6 +193,7 @@
 			files = (
 				09F8696C2C17C95700093070 /* NetworkingService.swift in Sources */,
 				09F869562C176B1200093070 /* ContentView.swift in Sources */,
+				09F8696E2C18D4F800093070 /* ContentViewModel.swift in Sources */,
 				09F8696A2C17C90100093070 /* NetworkingServiceProtocol.swift in Sources */,
 				09F869672C176EEF00093070 /* MovieSearch.swift in Sources */,
 				09F869542C176B1200093070 /* SearchMoviesProjectApp.swift in Sources */,
