@@ -16,6 +16,8 @@ struct ContentView: View {
                     .background(Color.white)
                     .cornerRadius(8)
                     .shadow(color: .gray, radius: 2, x: 0, y: 2)
+                    .autocorrectionDisabled(true)
+                    .autocapitalization(.none)
                 
                 Button(action: {
                     viewModel.searchMovies()
@@ -33,8 +35,9 @@ struct ContentView: View {
                 ProgressView()
                     .padding()
             } else {
+                // Here is the base url with width https://image.tmdb.org/t/p/w45
                 List(viewModel.movieSearch?.results ?? []) { result in
-                    Text(result.title)
+                    Text("\(result.title), poster path: \(result.posterPath)")
                 }
             }
             
