@@ -33,7 +33,7 @@ class ContentViewModel: ObservableObject {
            }
        }
        
-       func constructPosterURL(posterPath: String, size: String = "w45") -> URL? {
+       func constructPosterURL(posterPath: String, size: String = "w185") -> URL? {
            let baseURL = "https://image.tmdb.org/t/p/"
            let fullPath = baseURL + size + posterPath
            return URL(string: fullPath)

@@ -12,6 +12,8 @@ struct ContentView: View {
                     .background(Color.white)
                     .cornerRadius(8)
                     .shadow(color: .gray, radius: 2, x: 0, y: 2)
+                    .autocorrectionDisabled(true)
+                    .autocapitalization(.none)
                 
                 Button(action: {
                     viewModel.searchMovies()
@@ -43,6 +45,7 @@ struct ContentView: View {
                                     image
                                         .resizable()
                                         .aspectRatio(contentMode: .fit)
+                                        .frame(maxWidth: .infinity)
                                 case .failure:
                                     Image(systemName: "photo")
                                 @unknown default:
