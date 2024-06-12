@@ -2,11 +2,7 @@ import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject var networkService: NetworkService
-    @StateObject private var viewModel: ContentViewModel
-    
-    init() {
-        _viewModel = StateObject(wrappedValue: ContentViewModel(networkService: NetworkService(token: "token_4435356")))
-    }
+    @StateObject private var viewModel = ContentViewModel()
     
     var body: some View {
         VStack {
@@ -16,8 +12,6 @@ struct ContentView: View {
                     .background(Color.white)
                     .cornerRadius(8)
                     .shadow(color: .gray, radius: 2, x: 0, y: 2)
-                    .autocorrectionDisabled(true)
-                    .autocapitalization(.none)
                 
                 Button(action: {
                     viewModel.searchMovies()
@@ -35,9 +29,32 @@ struct ContentView: View {
                 ProgressView()
                     .padding()
             } else {
-                // Here is the base url with width https://image.tmdb.org/t/p/w45
                 List(viewModel.movieSearch?.results ?? []) { result in
-                    Text("\(result.title), poster path: \(result.posterPath)")
+                    VStack(alignment: .leading) {
+                        Text(result.title)
+                            .font(.headline)
+                        
+                        if let posterPath = result.posterPath, let url = viewModel.constructPosterURL(posterPath: posterPath) {
+                            AsyncImage(url: url) { phase in
+                                switch phase {
+                                case .empty:
+                                    ProgressView()
+                                case .success(let image):
+                                    image
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                case .failure:
+                                    Image(systemName: "photo")
+                                @unknown default:
+                                    Image(systemName: "photo")
+                                }
+                            }
+                            .frame(height: 200)
+                        } else {
+                            Image(systemName: "photo")
+                                .frame(height: 200)
+                        }
+                    }
                 }
             }
             
@@ -49,8 +66,6 @@ struct ContentView: View {
         }
     }
 }
-
-
 
 #Preview {
     ContentView()
