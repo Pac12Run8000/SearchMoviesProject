@@ -32,11 +32,13 @@ struct ContentView: View {
                     .padding()
             } else {
                 List(viewModel.movieSearch?.results ?? []) { result in
-                    VStack(alignment: .leading) {
+                    // Lazy loading
+                    LazyVStack(alignment: .leading) {
                         Text(result.title)
                             .font(.headline)
                         
                         if let posterPath = result.posterPath, let url = viewModel.constructPosterURL(posterPath: posterPath) {
+                            // More efficient image loading
                             AsyncImage(url: url) { phase in
                                 switch phase {
                                 case .empty:

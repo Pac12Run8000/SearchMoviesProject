@@ -14,14 +14,38 @@ class NetworkService: ObservableObject, NetworkServiceProtocol {
         
         let (data, response) = try await URLSession.shared.data(for: request)
         
-        guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+        guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else {
             throw URLError(.badServerResponse)
         }
         
         let decodedData = try JSONDecoder().decode(MovieSearch.self, from: data)
-        DispatchQueue.main.async {
+        await MainActor.run {
             self.movieSearch = decodedData
         }
         return decodedData
     }
+    
+    func fetchDataWithRetry(from url: URL, retries: Int, delay: TimeInterval) async throws -> MovieSearch {
+            var attempts = 0
+            var lastError: Error?
+
+            while attempts < retries {
+                do {
+                    return try await fetchData(from: url)
+                } catch {
+                    lastError = error
+                    attempts += 1
+                    print("Attempt \(attempts) failed: \(error.localizedDescription)")
+                    if attempts < retries {
+                        try await Task.sleep(nanoseconds: UInt64(delay * 1_000_000_000))
+                    }
+                }
+            }
+
+            if let lastError = lastError {
+                throw lastError
+            } else {
+                throw URLError(.unknown)
+            }
+        }
 }
