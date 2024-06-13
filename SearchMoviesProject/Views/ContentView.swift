@@ -67,6 +67,7 @@ struct ContentView: View {
         }
         .background(Color.pink.edgesIgnoringSafeArea(.all))
         .onAppear {
+            viewModel.urlString = "https://api.themoviedb.org/3/search/movie?query="
             viewModel.networkService = networkService
         }
     }

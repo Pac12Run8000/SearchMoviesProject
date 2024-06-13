@@ -6,16 +6,16 @@ class ContentViewModel: ObservableObject {
     @Published var movieSearch: MovieSearch? = nil
     
     var networkService: NetworkService?
+    var urlString:String?
     
-    init(networkService: NetworkService? = nil) {
+    init(networkService: NetworkService? = nil, urlString:String? = nil) {
         self.networkService = networkService
+        self.urlString = urlString
     }
     
     func searchMovies() {
-           guard let networkService = networkService,
-                 let url = URL(string: "https://api.themoviedb.org/3/search/movie?query=\(searchText)") else { return }
-           
-           isLoading = true
+        guard let urlString = urlString, let networkService = networkService, let url = URL(string: urlString + searchText) else { return }
+        isLoading = true
            
         Task {
                 do {
