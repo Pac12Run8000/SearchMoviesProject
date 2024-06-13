@@ -9,7 +9,7 @@ import SwiftUI
 
 @main
 struct SearchMoviesProjectApp: App {
-    @StateObject private var networkService = NetworkService(token: "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxYWZmMGYyYTJlMDUxOTMyNzk2ODYxZGI2YTI0NmQ3NSIsInN1YiI6IjU5MzY5N2UyOTI1MTQxNmJlZTAwZDA2ZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.IZZ_QnAvoat2CoJDtjgQZxpcyrLVW7qQBLx3OHvYgHU")
+    @StateObject private var networkService = NetworkService(token: "")
     var body: some Scene {
         WindowGroup {
             ContentView()
